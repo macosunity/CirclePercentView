@@ -16,6 +16,7 @@
 @implementation ViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     CirclePercentView *view = [[CirclePercentView alloc] initWithFrame:CGRectMake((self.view.frame.size.width-200)/2.0, (self.view.frame.size.height-200)/2.0, 200, 200) andPercentValue:0.95];
@@ -24,8 +25,8 @@
 }
 
 - (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end
