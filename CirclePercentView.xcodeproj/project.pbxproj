@@ -15,6 +15,7 @@
 		EF5CAA391D4A16FB00F5C852 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF5CAA371D4A16FB00F5C852 /* LaunchScreen.storyboard */; };
 		EF5CAA441D4A16FB00F5C852 /* CirclePercentViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5CAA431D4A16FB00F5C852 /* CirclePercentViewTests.m */; };
 		EF5CAA4F1D4A16FB00F5C852 /* CirclePercentViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5CAA4E1D4A16FB00F5C852 /* CirclePercentViewUITests.m */; };
+		EF5CAA5E1D4A175200F5C852 /* CirclePercentView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5CAA5D1D4A175200F5C852 /* CirclePercentView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		EF5CAA4A1D4A16FB00F5C852 /* CirclePercentViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CirclePercentViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF5CAA4E1D4A16FB00F5C852 /* CirclePercentViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CirclePercentViewUITests.m; sourceTree = "<group>"; };
 		EF5CAA501D4A16FB00F5C852 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF5CAA5C1D4A175200F5C852 /* CirclePercentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CirclePercentView.h; sourceTree = "<group>"; };
+		EF5CAA5D1D4A175200F5C852 /* CirclePercentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CirclePercentView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +106,8 @@
 			children = (
 				EF5CAA2C1D4A16FB00F5C852 /* AppDelegate.h */,
 				EF5CAA2D1D4A16FB00F5C852 /* AppDelegate.m */,
+				EF5CAA5C1D4A175200F5C852 /* CirclePercentView.h */,
+				EF5CAA5D1D4A175200F5C852 /* CirclePercentView.m */,
 				EF5CAA2F1D4A16FB00F5C852 /* ViewController.h */,
 				EF5CAA301D4A16FB00F5C852 /* ViewController.m */,
 				EF5CAA321D4A16FB00F5C852 /* Main.storyboard */,
@@ -273,6 +278,7 @@
 				EF5CAA311D4A16FB00F5C852 /* ViewController.m in Sources */,
 				EF5CAA2E1D4A16FB00F5C852 /* AppDelegate.m in Sources */,
 				EF5CAA2B1D4A16FB00F5C852 /* main.m in Sources */,
+				EF5CAA5E1D4A175200F5C852 /* CirclePercentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

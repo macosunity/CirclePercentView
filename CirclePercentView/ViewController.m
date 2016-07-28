@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "CirclePercentView.h"
 
 @interface ViewController ()
 
@@ -16,7 +17,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    CirclePercentView *view = [[CirclePercentView alloc] initWithFrame:CGRectMake((self.view.frame.size.width-200)/2.0, (self.view.frame.size.height-200)/2.0, 200, 200) andPercentValue:0.6];
+    view.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:view];
 }
 
 - (void)didReceiveMemoryWarning {
