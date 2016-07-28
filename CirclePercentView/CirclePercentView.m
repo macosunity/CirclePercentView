@@ -19,7 +19,7 @@
         
         int percentMaxValue = (int)(percentValue * 100);
         
-        for (int i=0; i<100; i++) {
+        for (int i=1; i<=100; i++) {
             
             CGFloat degreeValue = 60+((300-60)/100.0)*i;
             CGFloat currAngle = DEGREES_TO_RADIANS(degreeValue);
