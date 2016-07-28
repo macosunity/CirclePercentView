@@ -23,8 +23,9 @@
             
             CGFloat degreeValue = 60+((300-60)/100.0)*i;
             CGFloat currAngle = DEGREES_TO_RADIANS(degreeValue);
-            CGFloat imageOffsetX = self.frame.size.width/2.0+self.frame.size.width/2.0*sinf(currAngle);
-            CGFloat imageOffsetY = self.frame.size.width/2.0+self.frame.size.width/2.0*cosf(currAngle);
+            CGFloat radiusWidth = self.bounds.size.width/2.0;
+            CGFloat imageOffsetX = radiusWidth+radiusWidth*sinf(currAngle);
+            CGFloat imageOffsetY = radiusWidth+radiusWidth*cosf(currAngle);
             
             UIImageView *imageView = [[UIImageView alloc] init];
             imageView.layer.anchorPoint = CGPointMake(0.5, 0.5);
