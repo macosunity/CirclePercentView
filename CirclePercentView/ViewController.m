@@ -19,9 +19,11 @@
     
     [super viewDidLoad];
     
-    CirclePercentView *view = [[CirclePercentView alloc] initWithFrame:CGRectMake((self.view.frame.size.width-200)/2.0, (self.view.frame.size.height-200)/2.0, 200, 200) andPercentValue:0.95];
-    view.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:view];
+    CirclePercentView *circleView = [[CirclePercentView alloc] initWithFrame:CGRectMake((self.view.frame.size.width-200)/2.0, (self.view.frame.size.height-200)/2.0, 200, 200)];
+    circleView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:circleView];
+    
+    [circleView setPercentValue:0.3];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -10,14 +10,14 @@
 
 @interface CirclePercentView : UIView
 
+- (instancetype)initWithFrame:(CGRect)frame;
+
+
 /**
- *  初始化CirclePercentView
+ *  设置百分比
  *
- *  @param frame        CirclePercentView的frame
- *  @param percentValue 要显示的百分比(0.0 ~ 1.0之间)
- *
- *  @return CirclePercentView实例
+ *  @param percentValue 要显示的百分比(0.00 ~ 1.00之间的两位小数)
  */
-- (instancetype)initWithFrame:(CGRect)frame andPercentValue:(double)percentValue;
+- (void)setPercentValue:(double)percentValue;
 
 @end
