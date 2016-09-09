@@ -27,7 +27,4 @@
  */
 - (void)startPercentAnimationWithValue:(double)percentValue;
 
-//结束百分比动画
-- (void)stopPercentAnimation;
-
 @end

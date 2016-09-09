@@ -37,7 +37,6 @@
 
 @interface CirclePercentView() {
     
-    GCDTimer *_timer;
     CAIndexedLayer *_containerLayer;
     UILabel *_percentLabel;
 }
@@ -51,7 +50,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        _timer = [[GCDTimer alloc] init];
         _containerLayer = [[CAIndexedLayer alloc] init];
         
         for (int i=1; i<=100; i++) {
@@ -129,11 +127,12 @@
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
+        GCDTimer *timer = [[GCDTimer alloc] init];
         //double计算后转成int的精度有问题，所以需要 +0.01
         int percentMaxValue = (int)(percentValue * 100 + 0.01);
         
         __block int layerIndex = 0;
-        [_timer startTimerWithInterval:0.02 andDuration:3 whenTiming:^(NSTimeInterval leftTime) {
+        [timer startTimerWithInterval:0.02 andDuration:3 whenTiming:^(NSTimeInterval leftTime) {
             
             if (layerIndex < percentMaxValue) {
                 CAIndexedLayer *imageLayer = (CAIndexedLayer *)[_containerLayer layerWithIndex:(100-layerIndex)-1];
@@ -143,26 +142,12 @@
                 _percentLabel.attributedText = [self generateAttributeString:percentString fontSize:45];
             }
             else {
-                [self stopPercentAnimation];
+                [timer stopTimer];
             }
         } whenTimingFinish:^(NSTimeInterval leftTime) {
             
         }];
     });
-}
-
-- (void)updateImageAndLabelAtIndex:(int)layerIndex {
-    
-    CAIndexedLayer *imageLayer = (CAIndexedLayer *)[_containerLayer layerWithIndex:(100-layerIndex)];
-    imageLayer.contents = (id)[UIImage imageNamed:IMAGE_NAME_PERCENT].CGImage;
-    NSString *percentString = [NSString stringWithFormat:@"%d%%", layerIndex];
-    _percentLabel.attributedText = [self generateAttributeString:percentString fontSize:45];
-    [_timer stopTimer];
-}
-
-//结束百分比动画
-- (void)stopPercentAnimation {
-    [_timer stopTimer];
 }
 
 @end
