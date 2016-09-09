@@ -39,6 +39,7 @@
     
     GCDTimer *_timer;
     CAIndexedLayer *_containerLayer;
+    UILabel *_percentLabel;
 }
 
 @end
@@ -73,8 +74,37 @@
         }
         
         [self.layer addSublayer:_containerLayer];
+        
+        CGFloat percentFontSize = 45;
+        _percentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, percentFontSize)];
+        _percentLabel.font = [UIFont systemFontOfSize:percentFontSize];
+        _percentLabel.textAlignment = NSTextAlignmentCenter;
+        _percentLabel.textColor = [UIColor blueColor];
+        _percentLabel.backgroundColor = [UIColor clearColor];
+        [self addSubview:_percentLabel];
+        _percentLabel.center = CGPointMake(_percentLabel.center.x, 63.5+percentFontSize/2.0);
+        
+        [self setPercentValue:0.0];
     }
     return self;
+}
+
+- (void)setPercentValue:(double)percentValue {
+    
+    int percentMaxValue = (int)(percentValue * 100);
+    
+    NSString *percentString = [NSString stringWithFormat:@"%d%%", percentMaxValue];
+    _percentLabel.attributedText = [self generateAttributeString:percentString fontSize:45];
+}
+
+- (NSAttributedString *)generateAttributeString:(NSString *)srcString fontSize:(CGFloat)fontSize {
+    
+    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:srcString];
+    [attributeString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:NSMakeRange(0, srcString.length)];
+    [attributeString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:fontSize] range:NSMakeRange(0, srcString.length-1)];
+    [attributeString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(srcString.length-1, 1)];
+    
+    return attributeString;
 }
 
 - (void)resetPercentToZero {
@@ -82,6 +112,8 @@
     for (int i=1; i<=100; i++) {
         CAIndexedLayer *imageLayer = (CAIndexedLayer *)[_containerLayer layerWithIndex:i];
         imageLayer.contents = (id)[UIImage imageNamed:IMAGE_NAME_GRAY].CGImage;
+        NSString *percentString = [NSString stringWithFormat:@"0%%"];
+        _percentLabel.attributedText = [self generateAttributeString:percentString fontSize:45];
     }
 }
 
@@ -97,27 +129,36 @@
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
-        int percentMaxValue = (int)(percentValue * 100);
+        //double计算后转成int的精度有问题，所以需要 +0.01
+        int percentMaxValue = (int)(percentValue * 100 + 0.01);
         
-        __block int count = 100;
-        __block int step = 3;
         __block int layerIndex = 0;
-        [_timer startTimerWithInterval:0.02 andDuration:2 whenTiming:^(NSTimeInterval leftTime) {
-            if (layerIndex <= percentMaxValue) {
-                CAIndexedLayer *imageLayer = (CAIndexedLayer *)[_containerLayer layerWithIndex:(100-layerIndex)];
+        [_timer startTimerWithInterval:0.02 andDuration:3 whenTiming:^(NSTimeInterval leftTime) {
+            
+            if (layerIndex < percentMaxValue) {
+                CAIndexedLayer *imageLayer = (CAIndexedLayer *)[_containerLayer layerWithIndex:(100-layerIndex)-1];
                 imageLayer.contents = (id)[UIImage imageNamed:IMAGE_NAME_PERCENT].CGImage;
                 ++layerIndex;
+                NSString *percentString = [NSString stringWithFormat:@"%d%%", layerIndex];
+                _percentLabel.attributedText = [self generateAttributeString:percentString fontSize:45];
             }
             else {
-                [_timer stopTimer];
+                [self stopPercentAnimation];
             }
-            count -= step;
         } whenTimingFinish:^(NSTimeInterval leftTime) {
             
         }];
     });
 }
 
+- (void)updateImageAndLabelAtIndex:(int)layerIndex {
+    
+    CAIndexedLayer *imageLayer = (CAIndexedLayer *)[_containerLayer layerWithIndex:(100-layerIndex)];
+    imageLayer.contents = (id)[UIImage imageNamed:IMAGE_NAME_PERCENT].CGImage;
+    NSString *percentString = [NSString stringWithFormat:@"%d%%", layerIndex];
+    _percentLabel.attributedText = [self generateAttributeString:percentString fontSize:45];
+    [_timer stopTimer];
+}
 
 //结束百分比动画
 - (void)stopPercentAnimation {
