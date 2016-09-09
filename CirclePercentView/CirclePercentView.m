@@ -7,8 +7,41 @@
 //
 
 #import "CirclePercentView.h"
+#import "GCDTimer.h"
 
-#define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
+#define IMAGE_NAME_GRAY             @"gray"
+#define IMAGE_NAME_PERCENT          @"percent"
+#define DEGREES_TO_RADIANS(angle)   ((angle) / 180.0 * M_PI)
+
+@interface CAIndexedLayer : CALayer
+
+@property (nonatomic,assign) NSUInteger index;
+
+- (CAIndexedLayer *)layerWithIndex:(NSUInteger)index;
+
+@end
+
+
+@implementation CAIndexedLayer
+
+- (CALayer *)layerWithIndex:(NSUInteger)index {
+    
+    if (index >= [self.sublayers count]) {
+        return nil;
+    }
+    
+    return self.sublayers[index];
+}
+
+@end
+
+@interface CirclePercentView() {
+    
+    GCDTimer *_timer;
+    CAIndexedLayer *_containerLayer;
+}
+
+@end
 
 @implementation CirclePercentView
 
@@ -16,6 +49,9 @@
     
     self = [super initWithFrame:frame];
     if (self) {
+        
+        _timer = [[GCDTimer alloc] init];
+        _containerLayer = [[CAIndexedLayer alloc] init];
         
         for (int i=1; i<=100; i++) {
             
@@ -25,36 +61,67 @@
             CGFloat imageOffsetX = radiusWidth+radiusWidth*sinf(currAngle);
             CGFloat imageOffsetY = radiusWidth+radiusWidth*cosf(currAngle);
             
-            UIImageView *imageView = [[UIImageView alloc] init];
-            imageView.layer.anchorPoint = CGPointMake(0.5, 0.5);
-            imageView.frame = CGRectMake(imageOffsetX, imageOffsetY, 2, 14);
-            imageView.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(-degreeValue));
-            imageView.layer.allowsEdgeAntialiasing = YES;
-            imageView.tag = 1000+i;
-            [self addSubview:imageView];
+            CAIndexedLayer *imageLayer = [[CAIndexedLayer alloc] init];
+            imageLayer.anchorPoint = CGPointMake(0.5, 0.5);
+            imageLayer.frame = CGRectMake(imageOffsetX, imageOffsetY, 2, 14);
+            imageLayer.transform = CATransform3DMakeRotation(DEGREES_TO_RADIANS(-degreeValue), 0, 0, 1);
+            imageLayer.allowsEdgeAntialiasing = YES;
+            imageLayer.index = i;
+            imageLayer.contents = (id)[UIImage imageNamed:IMAGE_NAME_GRAY].CGImage;
             
-            imageView.backgroundColor = [UIColor lightGrayColor];
+            [_containerLayer addSublayer:imageLayer];
         }
-
+        
+        [self.layer addSublayer:_containerLayer];
     }
     return self;
 }
 
-- (void)setPercentValue:(double)percentValue {
-    
-    int percentMaxValue = (int)(percentValue * 100);
+- (void)resetPercentToZero {
     
     for (int i=1; i<=100; i++) {
-        
-        UIImageView *imageView = [self viewWithTag:1000+i];
-        
-        if (i <= (100-percentMaxValue)) {
-            imageView.backgroundColor = [UIColor lightGrayColor];
-        }
-        else {
-            imageView.backgroundColor = [UIColor redColor];
-        }
+        CAIndexedLayer *imageLayer = (CAIndexedLayer *)[_containerLayer layerWithIndex:i];
+        imageLayer.contents = (id)[UIImage imageNamed:IMAGE_NAME_GRAY].CGImage;
+    }
+}
+
+//开始百分比动画
+- (void)startPercentAnimationWithValue:(double)percentValue {
+    
+    //只有百分比大于0时才做动画
+    if (! (percentValue > 0.0) ) {
+        return;
     }
     
+    [self resetPercentToZero];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        int percentMaxValue = (int)(percentValue * 100);
+        
+        __block int count = 100;
+        __block int step = 3;
+        __block int layerIndex = 0;
+        [_timer startTimerWithInterval:0.02 andDuration:2 whenTiming:^(NSTimeInterval leftTime) {
+            if (layerIndex <= percentMaxValue) {
+                CAIndexedLayer *imageLayer = (CAIndexedLayer *)[_containerLayer layerWithIndex:(100-layerIndex)];
+                imageLayer.contents = (id)[UIImage imageNamed:IMAGE_NAME_PERCENT].CGImage;
+                ++layerIndex;
+            }
+            else {
+                [_timer stopTimer];
+            }
+            count -= step;
+        } whenTimingFinish:^(NSTimeInterval leftTime) {
+            
+        }];
+    });
 }
+
+
+//结束百分比动画
+- (void)stopPercentAnimation {
+    [_timer stopTimer];
+}
+
 @end

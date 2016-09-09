@@ -12,12 +12,10 @@
 
 - (instancetype)initWithFrame:(CGRect)frame;
 
+//开始百分比动画
+- (void)startPercentAnimationWithValue:(double)percentValue;
 
-/**
- *  设置百分比
- *
- *  @param percentValue 要显示的百分比(0.00 ~ 1.00之间的两位小数)
- */
-- (void)setPercentValue:(double)percentValue;
+//结束百分比动画
+- (void)stopPercentAnimation;
 
 @end

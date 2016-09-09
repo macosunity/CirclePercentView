@@ -16,6 +16,7 @@
 		EF5CAA441D4A16FB00F5C852 /* CirclePercentViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5CAA431D4A16FB00F5C852 /* CirclePercentViewTests.m */; };
 		EF5CAA4F1D4A16FB00F5C852 /* CirclePercentViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5CAA4E1D4A16FB00F5C852 /* CirclePercentViewUITests.m */; };
 		EF5CAA5E1D4A175200F5C852 /* CirclePercentView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5CAA5D1D4A175200F5C852 /* CirclePercentView.m */; };
+		EF66927A1D82A9F30017F67C /* GCDTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = EF6692791D82A9F30017F67C /* GCDTimer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,8 @@
 		EF5CAA501D4A16FB00F5C852 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EF5CAA5C1D4A175200F5C852 /* CirclePercentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CirclePercentView.h; sourceTree = "<group>"; };
 		EF5CAA5D1D4A175200F5C852 /* CirclePercentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CirclePercentView.m; sourceTree = "<group>"; };
+		EF6692781D82A9F30017F67C /* GCDTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDTimer.h; sourceTree = "<group>"; };
+		EF6692791D82A9F30017F67C /* GCDTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDTimer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +109,8 @@
 			children = (
 				EF5CAA2C1D4A16FB00F5C852 /* AppDelegate.h */,
 				EF5CAA2D1D4A16FB00F5C852 /* AppDelegate.m */,
+				EF6692781D82A9F30017F67C /* GCDTimer.h */,
+				EF6692791D82A9F30017F67C /* GCDTimer.m */,
 				EF5CAA5C1D4A175200F5C852 /* CirclePercentView.h */,
 				EF5CAA5D1D4A175200F5C852 /* CirclePercentView.m */,
 				EF5CAA2F1D4A16FB00F5C852 /* ViewController.h */,
@@ -275,6 +280,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF66927A1D82A9F30017F67C /* GCDTimer.m in Sources */,
 				EF5CAA311D4A16FB00F5C852 /* ViewController.m in Sources */,
 				EF5CAA2E1D4A16FB00F5C852 /* AppDelegate.m in Sources */,
 				EF5CAA2B1D4A16FB00F5C852 /* main.m in Sources */,
@@ -504,6 +510,7 @@
 				EF5CAA551D4A16FB00F5C852 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EF5CAA561D4A16FB00F5C852 /* Build configuration list for PBXNativeTarget "CirclePercentViewTests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +519,7 @@
 				EF5CAA581D4A16FB00F5C852 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EF5CAA591D4A16FB00F5C852 /* Build configuration list for PBXNativeTarget "CirclePercentViewUITests" */ = {
 			isa = XCConfigurationList;
@@ -520,6 +528,7 @@
 				EF5CAA5B1D4A16FB00F5C852 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

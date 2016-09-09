@@ -23,7 +23,7 @@
     circleView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:circleView];
     
-    [circleView setPercentValue:0.3];
+    [circleView startPercentAnimationWithValue:0.80];
 }
 
 - (void)didReceiveMemoryWarning {
